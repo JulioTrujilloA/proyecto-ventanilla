@@ -3,8 +3,8 @@ proyecto-ventanilla
 
 Aplicación Web para ventanilla activos en Control Escolar del CUCI.
 
-PROYECTO:
-SISTEMA DE SOLICITUDES EN VENTANILLA “ALUMNOS ACTIVOS”.
+##PROYECTO##
+###SISTEMA DE SOLICITUDES EN VENTANILLA “ALUMNOS ACTIVOS”.###
 Se solicita un sistema para llevar el control de las solicitudes que se hacen en el edificio de Control Escolar del Centro Universitario de la Ciénega; más específicamente en la ventanilla “Alumnos activos”.
 Se requiere una estructura de base de datos con las siguientes características:
 1.	De cada alumno se desea guardar: nombre, apellido paterno, apellido materno, código de estudiante y carrera.
