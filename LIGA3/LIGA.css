@@ -194,10 +194,19 @@ border:1px solid gray;
 	padding:4%;	
 }
 
+#tablaMenu table{
+	table-layout:fixed;
+	width:100%;
+}
+
 #tablaMenu table tr td{
 border:1px solid #333;
 	text-align:center;
-	padding:5%;	
+	vertical-align:middle;
+	width:16.66%;
+	height:90px;
+	padding:8px;
+	word-wrap:break-word;
 }
 
 table caption {
