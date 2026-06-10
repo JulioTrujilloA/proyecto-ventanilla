@@ -1,6 +1,8 @@
 <?php
 // Fragmento de contenido para perfil.php (se carga dentro de #bod).
 // La conexión y la sesión ya están iniciadas por perfil.php.
+// El formulario se construye con el framework LIGA (HTML::forma) a partir
+// de los metadatos de la tabla `perfil`.
 
 $clave = $_SESSION['clave_admin'] ?? '';
 
@@ -40,26 +42,36 @@ endif; ?>
     <?php endif; ?>
   </div>
 
-  <form action="php/guardar_perfil.php" method="post" enctype="multipart/form-data">
-    <p><label>Código</label>
-       <input type="text" value="<?php echo hp($datos['clave_admin']); ?>" disabled></p>
+<?php
+// Formulario generado por LIGA desde la tabla `perfil`.
+$perfil = LIGA('proyectofinal.perfil');
 
-    <p><label>Nombre</label>
-       <input type="text" value="<?php echo hp($datos['nombre_admin']); ?>" disabled></p>
+// Valores actuales para prellenar los campos editables (columnas reales)
+$vals = array(
+    'domicilio' => $datos['domicilio'] ?? '',
+    'telefono'  => $datos['telefono']  ?? '',
+);
 
-    <p><label>Domicilio</label>
-       <input type="text" name="domicilio" value="<?php echo hp($datos['domicilio']); ?>"></p>
+// Columnas del formulario: código/nombre de solo lectura (de administrador),
+// domicilio/telefono como campos reales de `perfil`, y foto como input de archivo.
+$cols = array(
+    'Código'    => '<input type="text" value="' . hp($datos['clave_admin']) . '" disabled />',
+    'Nombre'    => '<input type="text" value="' . hp($datos['nombre_admin']) . '" disabled />',
+    'domicilio' => 'Domicilio',
+    'telefono'  => 'Teléfono',
+    'Foto'      => '<input type="file" name="foto" accept="image/jpeg,image/png,image/gif" />',
+);
 
-    <p><label>Teléfono</label>
-       <input type="text" name="telefono" value="<?php echo hp($datos['telefono']); ?>"></p>
+$props = array(
+    'form'   => 'action="php/guardar_perfil.php" method="post" enctype="multipart/form-data" id="formPerfil"',
+    'submit' => '<button class="btn1">Guardar perfil</button>',
+    'reset'  => '',
+);
 
-    <p><label>Foto <small>(JPG, PNG o GIF, máx. 2 MB)</small></label>
-       <input type="file" name="foto" accept="image/jpeg,image/png,image/gif"></p>
-
-    <p class="perfil-acciones"><button type="submit">Guardar perfil</button></p>
-  </form>
+HTML::forma($perfil, 'Datos del administrador', $cols, $props, true, $vals);
+?>
 </div>
 
 <div id="regresa" style="width:100%; text-align:right;">
-  <a href="inicio.php" target="_parent"><button class="btn1">Regresar</button></a>
+  <a href="inicio.php" target="_parent"><button class="btn2">Regresar</button></a>
 </div>

@@ -164,9 +164,9 @@ footer a {
 	margin:0px 5px;
 }
 
-/* ---------- Mi perfil ---------- */
+/* ---------- Mi perfil (formulario generado por LIGA::forma) ---------- */
 #cuerpoPerfil {
-	max-width:460px;
+	max-width:480px;
 	margin:10px auto 0;
 	text-align:left;
 }
@@ -195,33 +195,59 @@ footer a {
 	font-style:italic;
 }
 
-#cuerpoPerfil p { margin:10px 0; }
+/* Fieldset/legend del formulario LIGA, acordes a la paleta del sitio */
+#cuerpoPerfil fieldset {
+	background:#fffdf9;
+	border:1px solid #e7e2d7;
+	border-radius:8px;
+	padding:14px 20px 18px;
+}
 
-#cuerpoPerfil label {
+#cuerpoPerfil fieldset legend {
+	background:#c17086;
+	color:#fff;
+	border:none;
+	border-radius:4px;
+	padding:4px 10px;
+	text-transform:uppercase;
+	font-size:.85em;
+	letter-spacing:-0.02em;
+}
+
+/* Cada campo en bloque (label arriba, input debajo a todo el ancho) */
+#cuerpoPerfil fieldset div {
+	margin:10px 0;
+	overflow:hidden;
+}
+
+#cuerpoPerfil fieldset div label {
+	float:none;
 	display:block;
-	margin-bottom:3px;
+	height:auto;
+	margin:0 0 3px;
 	font-family:Helvetica, Arial, sans-serif;
+	font-weight:bold;
 	text-transform:uppercase;
 	font-size:.8em;
 	color:#c17086;
 	letter-spacing:-0.02em;
 }
 
-#cuerpoPerfil label small { text-transform:none; color:#968765; }
-
-#cuerpoPerfil input[type=text],
-#cuerpoPerfil input[type=file] {
+#cuerpoPerfil input {
 	width:100%;
-	padding:6px;
 	box-sizing:border-box;
+	padding:6px;
 	border:1px solid #e7e2d7;
 	border-radius:4px;
-	background:#fffdf9;
+	background:#fff;
+	font-family:inherit;
 }
 
 #cuerpoPerfil input[disabled] { color:#968765; background:#f2f1ec; }
+#cuerpoPerfil input[type=file] { padding:4px; background:transparent; border:none; }
 
-#cuerpoPerfil .perfil-acciones { text-align:center; margin-top:16px; }
+#cuerpoPerfil .botones { text-align:center; margin-top:14px; }
+#cuerpoPerfil .botones button { padding:6px 16px; font-weight:bold; }
 
 .perfil-ok  { text-align:center; color:#2e7d32; font-weight:bold; }
 .perfil-err { text-align:center; color:#c0392b; font-weight:bold; }
