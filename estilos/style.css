@@ -182,6 +182,15 @@ footer a {
 	margin:0px 5px;
 }
 
+@media (max-width: 980px) {
+	body { width:auto; max-width:100%; margin:10px; }
+	header { height:auto; text-align:center; }
+	header img { position:static; display:block; margin:0 auto 10px; }
+	#hgroups { position:static; width:auto; padding-top:0; }
+	footer { width:auto; }
+	table[width="500"] { width:100% !important; }
+}
+
 table, th, td {
     border: 1px solid black;
 text-align: center;

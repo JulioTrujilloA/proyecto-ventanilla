@@ -251,3 +251,19 @@ footer a {
 
 .perfil-ok  { text-align:center; color:#2e7d32; font-weight:bold; }
 .perfil-err { text-align:center; color:#c0392b; font-weight:bold; }
+
+/* ---------- Responsivo (solo afecta pantallas pequeñas) ---------- */
+@media (max-width: 980px) {
+	body { width:auto; max-width:100%; margin:10px; }
+	header { height:auto; text-align:center; padding-bottom:14px; }
+	header img { position:static; display:block; margin:0 auto 10px; }
+	#hgroups { position:static; width:auto; padding-top:0; }
+	#bienve { float:none; margin-top:10px; text-align:center; }
+	footer { width:auto; }
+}
+
+@media (max-width: 560px) {
+	#tablaMenu table, #tablaMenu tbody, #tablaMenu tr { display:block; width:100%; }
+	#tablaMenu td { display:block; width:auto; height:auto; padding:14px 6px; }
+	#cuerpoPerfil { max-width:100%; }
+}

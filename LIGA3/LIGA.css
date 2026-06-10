@@ -197,16 +197,39 @@ border:1px solid gray;
 #tablaMenu table{
 	table-layout:fixed;
 	width:100%;
+	border:none;
+	background:transparent;
+	border-collapse:separate;
+	border-spacing:8px;
 }
 
 #tablaMenu table tr td{
-border:1px solid #333;
+	border:1px solid #e7e2d7;
+	border-radius:8px;
+	background:#fbfaf7;
 	text-align:center;
 	vertical-align:middle;
 	width:16.66%;
-	height:90px;
-	padding:8px;
+	height:96px;
+	padding:6px;
 	word-wrap:break-word;
+	cursor:pointer;
+	transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+#tablaMenu table tr td:hover{
+	background:#e6f6f6;
+	box-shadow:0 2px 6px rgba(0,0,0,.12);
+	transform:translateY(-2px);
+}
+
+#tablaMenu td a{
+	display:block;
+}
+
+#tablaMenu td a h3{
+	color:#0a7d7d;
+	margin:0;
 }
 
 table caption {
