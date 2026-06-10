@@ -1,24 +1,26 @@
 <?php
 session_start();
-// ConexiÛn con la base de datos
+// Conexi√≥n con la base de datos
 include('conexion.php');
-include('pieliga.php');
-//Recibir los datos ingresados en el formulario
-$codigo = $_POST['codigo'];
-$password = $_POST['password'];
-//Consultar si los datos est·n guardados en la base de datos
+
+// Recibir los datos ingresados en el formulario
+$codigo   = $_POST['codigo']   ?? '';
+$password = $_POST['password'] ?? '';
+
+// Buscar al administrador por su clave (buscar() filtra en PHP, no es inyectable)
 $liga = LIGA('proyectofinal.administrador');
-$q = array('clave_admin'=>''.$codigo.'',
-	    'password_admin'=>''.$password.'');
-$result = $liga->buscar($q);
-if($result){
-	//Definimos las variables de sesiÛn y redirigimos a la p·gina de usuario
-	 $_SESSION['nombre_admin'] = $result[0]['nombre_admin'];
-	 $_SESSION['clave_admin'] = $result[0]['clave_admin'];
-         echo '<script language="javascript"> location.href="../inicio.php" </script>';
-}else{
-	echo '<script language="javascript">
-	alert("Escribiste mal un dato");
-	self.location="../index.php"</script>';
-        
-}?>
+$result = $liga->buscar(array('clave_admin' => $codigo));
+
+// Validar la contrase√±a con password_verify() contra el hash almacenado
+if ($result && password_verify($password, $result[0]['password_admin'])) {
+    // Credenciales correctas: definir variables de sesi√≥n y entrar
+    $_SESSION['nombre_admin'] = $result[0]['nombre_admin'];
+    $_SESSION['clave_admin']  = $result[0]['clave_admin'];
+    echo '<script language="javascript"> location.href="../inicio.php" </script>';
+} else {
+    // Credenciales incorrectas
+    echo '<script language="javascript">
+    alert("Escribiste mal un dato");
+    self.location="../index.php"</script>';
+}
+?>
