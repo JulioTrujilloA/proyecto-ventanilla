@@ -1,9 +1,14 @@
 <?php 
 echo '<center>';
 echo '<h2>Alumnos Registrados</h2>';
-$pagi = $_GET['pagi']; 
-$contar_pagi = (strlen($pagi));    // Contamos el numero de caracteres
+$pagi = isset($_GET['pagi']) ? (int)$_GET['pagi'] : 0;
+$contar_pagi = ($pagi > 0) ? 1 : 0;    // ¿Se recibió un valor de página?
 $numer_reg = 10;  // Numero de registros por pagina
+
+// Inicializar la barra de navegación para evitar variables indefinidas
+$pag_anterior = '';
+$pag_siguiente = '';
+$separador = '';
 
 //Consulta de todos los alumnos
 $alumnado = LIGA('proyectofinal.alumno');
@@ -64,7 +69,7 @@ echo '<p align="center">'.$pagi_navegacion.'</p> ';
 }else{
 	// Si NO recibimos un valor por la variable $page ejecutamos esta consulta 
 
-$alumnos = LIGA('select * from alumno order by nombre_alumno limit 0,$numer_reg');
+$alumnos = LIGA("select * from alumno order by nombre_alumno limit 0,$numer_reg");
 $carrera = LIGA('select clave_carrera,descripcion_carrera from proyectofinal.carrera');
 $estatus = LIGA('proyectofinal.estatus_alumno');
 $sede = LIGA('proyectofinal.sede');

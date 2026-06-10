@@ -1,10 +1,26 @@
 <?php
+    // NOTA (modernización PHP 8.2): el módulo de reportes PDF depende de la librería
+    // vendida tcpdf 5.0.002 (2010), incompatible con PHP 8 (sintaxis $var{...}, each(),
+    // create_function — todo eliminado). Pendiente: reemplazar por una versión moderna
+    // vía Composer y readaptar este archivo. Ver README. Mientras tanto, degrada con
+    // un mensaje de mantenimiento en lugar de un fatal.
+    if (PHP_VERSION_ID >= 80000) {
+        header('Content-Type: text/html; charset=UTF-8');
+        echo '<!DOCTYPE html><meta charset="utf-8">'
+           . '<div style="font-family:sans-serif;max-width:540px;margin:40px auto;text-align:center">'
+           . '<h2>Reporte PDF en mantenimiento</h2>'
+           . '<p>La generación de PDF está temporalmente deshabilitada mientras se actualiza '
+           . 'la librería a una versión compatible con PHP 8.</p>'
+           . '<p><a href="../inicio.php">&larr; Volver</a></p></div>';
+        exit;
+    }
+
     // Se carga el archivo principal de la librería HTML2PDF
     require_once('../html2pdf/html2pdf.class.php');
 
     ob_start(); # No borre ésto
     require '../LIGA3/LIGA.php';
-    BD("localhost", "root", "123", "proyectofinal");
+    BD("localhost", "root", "", "proyectofinal");
     echo '<page id="pagpdf">';
 	echo '	<div align="center">
 				<img src="../estilos/pictures/controlE.png"/>
