@@ -1,6 +1,10 @@
 /* Estilos globales */
+/* Fuente única de todo el proyecto: cambia SOLO esta línea para cambiarla en todo el sitio */
+:root {
+    --app-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 * {
-    font-family:Tahoma;
+    font-family: var(--app-font);
     font-size:14px;
 }
 /* $.liga('mensaje', ...) */
@@ -132,8 +136,8 @@ fieldset div label {
     font-weight:bold;
     float:left;
 }
-input,select {
-    font-family:Tahoma;
+input, select, button, textarea {
+    font-family: var(--app-font);
     padding:2px;
 }
 input[type=submit], input[type=reset] {
@@ -175,7 +179,7 @@ table {
     background-color:#e6e6e6;
 }
 th {
-	font-family:"Courier New", Courier, monospace;
+	font-family: var(--app-font);
 	font-size:16px;
     border:0px solid gray;
     background-color:#b0c1fd;
@@ -183,7 +187,7 @@ th {
     padding:5px;
 }
 td {
-	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-family: var(--app-font);
     border:0px solid gray;
 	text-align:center;
 }
@@ -197,16 +201,45 @@ border:1px solid gray;
 #tablaMenu table{
 	table-layout:fixed;
 	width:100%;
+	border:none;
+	background:transparent;
+	border-collapse:separate;
+	border-spacing:8px;
 }
 
 #tablaMenu table tr td{
-border:1px solid #333;
+	border:1px solid #e7e2d7;
+	border-radius:8px;
+	background:#fbfaf7;
 	text-align:center;
 	vertical-align:middle;
 	width:16.66%;
-	height:90px;
-	padding:8px;
+	height:96px;
+	padding:6px;
 	word-wrap:break-word;
+	cursor:pointer;
+	transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+#tablaMenu table tr td:hover{
+	background:#e6f6f6;
+	box-shadow:0 2px 6px rgba(0,0,0,.12);
+	transform:translateY(-2px);
+}
+
+#tablaMenu td a{
+	display:block;
+}
+
+#tablaMenu td a h3{
+	color:#0a7d7d;
+	margin:0;
+	/* Fuente responsiva para que "Nuevo Administrador" quepa sin cortarse */
+	font-size:clamp(11px, 1.5vw, 15px);
+	line-height:1.15;
+	letter-spacing:0;
+	overflow-wrap:break-word;
+	hyphens:auto;
 }
 
 table caption {

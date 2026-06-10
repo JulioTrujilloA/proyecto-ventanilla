@@ -1,8 +1,13 @@
 <?php
 require '../LIGA3/LIGA.php';
-BD('localhost', 'root', '123');
+BD('localhost', 'root', '');
 $liga = LIGA('proyectofinal.alumno');
-$resp=$liga->insertar($_POST); // $_POST si viene de formulario
+
+$datos = $_POST;
+// Fecha de inscripción actual (columna NOT NULL que el formulario no captura)
+$datos['fecha_inscr_alumno'] = date('Y-m-d H:i:s');
+
+$resp = $liga->insertar($datos); // $datos derivado de $_POST
 if($resp>0){
 echo '<script language="javascript">
 alert("Datos agregados correctamente.");

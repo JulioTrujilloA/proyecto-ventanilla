@@ -11,7 +11,9 @@ class HTML {
 	// Obtiene una cadena mejorada para mostrar en los títulos de columna
 	private static function mejorar($cad) {
 		$cad = preg_replace('/([a-z])([A-Z])/', '$1 $2', $cad);
-		return utf8_encode(ucwords(strtolower(str_replace('_',' ',utf8_decode($cad)))));
+		// mb_convert_case (UTF-8) reemplaza a ucwords(strtolower()) + utf8_encode/decode,
+		// que están deprecados en PHP 8.2; además respeta acentos correctamente.
+		return mb_convert_case(str_replace('_', ' ', $cad), MB_CASE_TITLE, 'UTF-8');
 	}
 	// Obtiene una cadena a partir de un arreglo al estilo de propiedades HTML
 	private static function array2props($prop) {

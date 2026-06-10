@@ -1,8 +1,17 @@
 <?php
 require '../LIGA3/LIGA.php';
-BD('localhost', 'root', '123','proyectofinal');
+BD('localhost', 'root', '','proyectofinal');
 $liga = LIGA('proyectofinal.administrador');
-$resp = $liga->insertar($_POST); // $_POST si viene de formulario
+
+$datos = $_POST;
+// Hashear la contraseña (consistente con el login que usa password_verify)
+if (!empty($datos['password_admin'])) {
+    $datos['password_admin'] = password_hash($datos['password_admin'], PASSWORD_DEFAULT);
+}
+// Fecha de inscripción actual (columna NOT NULL que el formulario no captura)
+$datos['fecha_inscr_admin'] = date('Y-m-d H:i:s');
+
+$resp = $liga->insertar($datos); // $datos derivado de $_POST
 
 if($resp>0){
 echo '<script language="javascript">

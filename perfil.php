@@ -11,7 +11,6 @@ require 'php/nombreBienv.php';
 echo '</header>';
 
 echo '<section>';
-require 'html/cuerpo.html';
 echo '<div id="bod">';
 require 'php/cuerpoPerfil.php';
 echo '</div>';
