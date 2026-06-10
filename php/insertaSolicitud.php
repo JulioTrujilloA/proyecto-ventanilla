@@ -1,6 +1,6 @@
 <?php
 require '../LIGA3/LIGA.php';
-BD('localhost', 'root', '123');
+BD('localhost', 'root', '');
 $liga = LIGA('proyectofinal.solicitud');
 $resp=$liga->insertar($_POST); // $_POST si viene de formulario
 

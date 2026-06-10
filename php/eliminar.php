@@ -1,6 +1,6 @@
 <?php
 require '../LIGA3/LIGA.php';
-BD('localhost', 'root', '123','proyectofinal');
+BD('localhost', 'root', '','proyectofinal');
 $liga = LIGA('proyectofinal.solicitud');
 $id=$_GET['id'];
 
