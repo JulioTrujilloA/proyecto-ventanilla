@@ -1,0 +1,8 @@
+# Fotos subidas por usuarios (no versionar contenido de uploads)
+uploads/*
+!uploads/.gitkeep
+
+# Temporales / sistema
+*.log
+Thumbs.db
+.DS_Store

@@ -3,9 +3,9 @@
   * LIGA 3.0
   * Autor: Ing. Oscar Galileo García García
   */
- function __autoload($clase) {
-    require_once "$clase.php";
- }
+ spl_autoload_register(function ($clase) {
+    require_once __DIR__ . "/$clase.php";
+ });
  // Permite crear el objeto LIGA sin new
  function LIGA($s, $q='', $l='') {
     return new LIGA($s, $q, $l);
@@ -38,14 +38,14 @@
     }
     // Obtiene y/o actualiza la meta información a partir de la consulta o tabla
     function meta($f=false) {
-        if (count($this->meta) === 0 || $f) {
+        if (empty($this->meta) || $f) {
             return ($this->meta = $this->bd->meta($this->s));
         }
         return $this->meta;
     }
     //Obtiene y/o actualiza los registros a partir de la consulta completa
     function info($f=false) {
-        if (count($this->info) === 0 || $f) {
+        if (empty($this->info) || $f) {
             return ($this->info = $this->bd->info($this->s, $this->q, $this->l));
         }
         return $this->info;
@@ -151,9 +151,10 @@
     function columna($col) {
         $datos = array();
         while ($this->filas()) {
-            if (($d = $this->d($this->idx-1, $col))) {
-                $datos[] = $d;
-            }
+            // Incluir todos los valores (incluso vacíos) para que columna()
+            // mantenga el mismo número de elementos que las demás columnas;
+            // de lo contrario arreglo()/array_combine() falla con datos vacíos.
+            $datos[] = $this->d($this->idx-1, $col);
         }
         return $datos;
     }
