@@ -23,7 +23,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
     // Validar tamaño (2 MB) y tipo real por contenido (no por extensión)
     $maxBytes = 2 * 1024 * 1024;
     if ($_FILES['foto']['size'] > $maxBytes) {
-        header("Location: perfil.php?error=foto");
+        header("Location: ../perfil.php?error=foto");
         exit;
     }
 
@@ -36,7 +36,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
     $mime  = $finfo->file($_FILES['foto']['tmp_name']);
 
     if (!isset($permitidos[$mime])) {
-        header("Location: perfil.php?error=foto");
+        header("Location: ../perfil.php?error=foto");
         exit;
     }
 
@@ -46,7 +46,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
     $destino       = $dirSubidas . '/' . $nombreArchivo;
 
     if (!move_uploaded_file($_FILES['foto']['tmp_name'], $destino)) {
-        header("Location: perfil.php?error=bd");
+        header("Location: ../perfil.php?error=bd");
         exit;
     }
 
@@ -78,10 +78,10 @@ if ($rutaFoto === null) {
 }
 
 if ($stmt->execute()) {
-    header("Location: perfil.php?ok=1");
+    header("Location: ../perfil.php?ok=1");
     exit;
 } else {
-    header("Location: perfil.php?error=bd");
+    header("Location: ../perfil.php?error=bd");
     exit;
 }
 ?>
