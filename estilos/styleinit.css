@@ -1,6 +1,6 @@
 body {
 	background:#009999;
-	font-family:"Myriad Pro", Myriad, Helvetica, Arial, sans-serif;
+	font-family: var(--app-font);
 	font-size:90%;
 	color:#968765;
 	margin:20px auto;
@@ -10,7 +10,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family:Helvetica, Arial, sans-serif;
+	font-family: var(--app-font);
 	font-size:1.5em;
 	letter-spacing:-0.06em;
 	text-transform:uppercase;
@@ -26,7 +26,7 @@ font-size:22px;
 }
 
 a:link, a:visited {
-	font-family:georgia, times, serif;
+	font-family: var(--app-font);
 	font-weight:bold;
 	color:#c17086;
 	text-decoration:none;
@@ -146,7 +146,7 @@ article {
 }
 
 article p:first-of-type {
-	font-family:Helvetica, Arial, serif;
+	font-family: var(--app-font);
 	text-transform:uppercase;
 	border-top:1px dotted #968765;
 	border-bottom:1px dotted #968765;
@@ -225,7 +225,7 @@ footer a {
 	display:block;
 	height:auto;
 	margin:0 0 3px;
-	font-family:Helvetica, Arial, sans-serif;
+	font-family: var(--app-font);
 	font-weight:bold;
 	text-transform:uppercase;
 	font-size:.8em;

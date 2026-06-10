@@ -7,7 +7,7 @@
     if (PHP_VERSION_ID >= 80000) {
         header('Content-Type: text/html; charset=UTF-8');
         echo '<!DOCTYPE html><meta charset="utf-8">'
-           . '<div style="font-family:sans-serif;max-width:540px;margin:40px auto;text-align:center">'
+           . '<div style="font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;max-width:540px;margin:40px auto;text-align:center">'
            . '<h2>Reporte PDF en mantenimiento</h2>'
            . '<p>La generación de PDF está temporalmente deshabilitada mientras se actualiza '
            . 'la librería a una versión compatible con PHP 8.</p>'
