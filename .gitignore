@@ -2,6 +2,10 @@
 uploads/*
 !uploads/.gitkeep
 
+# Dependencias de Composer (instalar con: php composer.phar install)
+/vendor/
+composer.phar
+
 # Temporales / sistema
 *.log
 Thumbs.db

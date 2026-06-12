@@ -1,45 +1,35 @@
 <?php
-    // NOTA (modernización PHP 8.2): el módulo de reportes PDF depende de la librería
-    // vendida tcpdf 5.0.002 (2010), incompatible con PHP 8 (sintaxis $var{...}, each(),
-    // create_function — todo eliminado). Pendiente: reemplazar por una versión moderna
-    // vía Composer y readaptar este archivo. Ver README. Mientras tanto, degrada con
-    // un mensaje de mantenimiento en lugar de un fatal.
-    if (PHP_VERSION_ID >= 80000) {
-        header('Content-Type: text/html; charset=UTF-8');
-        echo '<!DOCTYPE html><meta charset="utf-8">'
-           . '<div style="font-family:\'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif;max-width:540px;margin:40px auto;text-align:center">'
-           . '<h2>Reporte PDF en mantenimiento</h2>'
-           . '<p>La generación de PDF está temporalmente deshabilitada mientras se actualiza '
-           . 'la librería a una versión compatible con PHP 8.</p>'
-           . '<p><a href="../inicio.php">&larr; Volver</a></p></div>';
-        exit;
-    }
+    // Reporte de Solicitudes en PDF.
+    // Modernización PHP 8.2: se sustituyó la librería vendida tcpdf 5.0.002 (2010)
+    // por spipu/html2pdf ^5 (sobre tecnickcom/tcpdf 6) instalada vía Composer.
+    use Spipu\Html2Pdf\Html2Pdf;
+    use Spipu\Html2Pdf\Exception\Html2PdfException;
 
-    // Se carga el archivo principal de la librería HTML2PDF
-    require_once('../html2pdf/html2pdf.class.php');
+    // Autoloader de Composer (vendor/ en la raíz del proyecto)
+    require_once('../vendor/autoload.php');
 
     ob_start(); # No borre ésto
     require '../LIGA3/LIGA.php';
     BD("localhost", "root", "", "proyectofinal");
     echo '<page id="pagpdf">';
 	echo '	<div align="center">
-				<img src="../estilos/pictures/controlE.png"/>
-			</div>
-			<div>
-				<h1 align="center">Reporte de Solicitudes</h1>
-			</div>
-			<br />';
+					<img src="../estilos/pictures/controlE.png"/>
+				</div>
+				<div>
+					<h1 align="center">Reporte de Solicitudes</h1>
+				</div>
+				<br />';
 
     $solicitud = LIGA('	select * from solicitud
 						inner join alumno,administrador,estatus_documento,servicio
-						where 
+						where
 						solicitud.id_servicio=servicio.id_servicio
 						and cod_alumno_sltud=codigo_alumno
 						and administrador=clave_admin
 						and estatus_doc=id_doc
 						order by
 						cod_alumno_sltud');
-    
+
 	$cols = array('Código alumno'=>'@[cod_alumno_sltud]',
 				  'Nombre alumno'=>'@[nombre_alumno]',
 				  'Documento'=>'@[descripcion_servicio]',
@@ -47,8 +37,8 @@
 				  'Fecha Pedido' =>'@[fecha_pedido]',
 				  'Fecha Firmado' =>'@[fecha_firmado]',
 				  'Fecha Entregado' =>'@[fecha_entregado]');
-			 
-			  
+
+
     $props = array('id'=>'class="id"',
 	               'table'=>'style="align:center; border-collapse:collapse" align="center"',
 				   'th'=>'style="border:2px solid red; text-align:center"',
@@ -67,27 +57,26 @@
     echo '</page>';
     $contenido = ob_get_clean(); # No borre ésto
     try {
-        // Se invoca la librería con D para hoja vertical (L horizontal), tamaño carta (Letter) e idioma español para los textos de la librería
-        $html2pdf = new HTML2PDF('L', 'Legal', 'es');
+        // L = horizontal (P vertical), tamaño Legal (Oficio) e idioma español
+        $html2pdf = new Html2Pdf('L', 'Legal', 'es');
 
-        // Permisos permitidos: print=imprimir, modify=modificar, copy=copiar texto, annot-forms=uso de formularios
-        // Segundo parámetro es una contraseña de apertura del documento
-        // Tercer parámetro es una contraseña para proteger el documento de los permisos denegados
-        $html2pdf->pdf->SetProtection(array('print','copy'),false,sha1('ContraseñaGENIAL'));
+        // Permisos permitidos: print=imprimir, copy=copiar texto.
+        // 2º parámetro: contraseña de apertura. 3º: contraseña de permisos.
+        $html2pdf->pdf->SetProtection(array('print','copy'), '', sha1('ContraseñaGENIAL'));
 
-        // Propiedades del documento, coloque aquí sus datos o puede descartar ésta parte
+        // Propiedades del documento
         $html2pdf->pdf->SetAuthor('Control Escolar');
         $html2pdf->pdf->SetTitle('Reporte');
         $html2pdf->pdf->SetSubject('Solicitudes Registradas');
         $html2pdf->pdf->SetKeywords('documento,html2pdf,ajax,liga');
 
-        // Se parsea el código generado hacia TCPDF
+        // Se parsea el HTML hacia TCPDF
         $html2pdf->writeHTML($contenido);
 
-        // Se envía el documento al navegador (I), con D forza la descarga
-        $html2pdf->Output('Reporte.pdf','I');
-    } catch(HTML2PDF_exception $e) {
-        // Manejador de alguna excepción, si no tiene experiencia en ésto no lo modifique
+        // Se envía al navegador (I); usar 'D' para forzar la descarga
+        $html2pdf->output('Reporte.pdf', 'I');
+    } catch (Html2PdfException $e) {
+        // Manejador de excepción de la librería
         echo $e;
         exit;
     }

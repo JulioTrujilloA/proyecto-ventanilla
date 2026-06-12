@@ -10,6 +10,11 @@
     // Crea una nueva instancia de conexión a MySQL a partir de los parámetros dados
     function __construct($s='localhost', $u='root', $p='', $b='') {
         if (empty(self::$conn)) {
+            // PHP 8.1+ cambió el modo por defecto de mysqli a lanzar excepciones
+            // (MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT). LIGA está diseñado para
+            // el comportamiento legacy: revisa self::$conn->error tras cada consulta.
+            // Restauramos ese modo para no romper ese manejo de errores.
+            mysqli_report(MYSQLI_REPORT_OFF);
             self::$conn = new mysqli($s, $u, $p);
 	    self::$conn->query("SET NAMES 'utf8'");
         }
